@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="stylesheet" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="diamond-button" attributes="size icon iconSrc">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        width:{{size}}px;
+        height:{{size}}px;
+        position: relative;
+      }
+      paper-icon-button{
+        width:{{size*0.7}}px;
+        height:{{size*0.7}}px;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        margin:auto;
+        transform: rotate(45deg);
+        background: #ccc;
+      }
+    </style>
+    <paper-icon-button icon="{{icon}}" iconsrc="{{iconSrc}}"></paper-icon-button>
+
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        size:40
+      });
+
+    })();
+  </script>
+</polymer-element>

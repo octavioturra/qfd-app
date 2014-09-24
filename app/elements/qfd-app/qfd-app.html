@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="qfd-app" attributes="">
+  <template>
+    <link rel="stylesheet" href="qfd-app.css">
+    
+    <header>
+      <qfd-interactions id="interactions" requirements="{{requirements}}"></qfd-interactions>  
+    </header>
+    
+    
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        requirements: [{id:1},{id:2},{id:3},{id:4}],
+        ready:function(){
+          
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

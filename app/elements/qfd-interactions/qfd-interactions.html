@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="qfd-interactions" attributes="requirements">
+  <template>
+    <link rel="stylesheet" href="qfd-interactions.css">
+    <template repeat="{{o, a in interactions}}">
+      <template repeat="{{i, b in interactions | ofPivot(o)}}">
+         <template bind="{{i | getPosition(b)}}">
+           teste
+            <diamond-button style="top:{{i[1].y}}px;left:{{i[1].x}}px;" size="{{size}}"></diamond-button>   
+         </template>
+      </template>
+    </template>
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        interactions: [],
+        requirements:[],
+        size:40,
+        observe:{
+          requirements:'processInteractions'
+        },
+        ofPivot: function (collection, pivot) {
+          return collection.filter(function (i) {
+            if (i.pivot.a == pivot) {
+              return i;
+            }
+          });
+        },
+        getPosition: function(item, index){
+          var size = this.size;
+          var total = this.interactions.length;
+          var pivot = {
+            x: index * size,
+            y: total * size - index* (size/2)
+          };
+          return [item, pivot];
+        },
+        ready:function(){
+          this.processInteractions();
+        },
+        processInteractions: function(){
+          if(this.requirements<2){
+            return;
+          }
+          var transitional = this.requirements;
+          var that = this;
+          this.interactions = [];
+          transitional.forEach(function(i){
+            transitional.filter(function(j){
+              if(i!=j){
+                return j;
+              }
+            }).forEach(function(j, n){
+              that.interactions.push(new that.Interaction(i, j));
+            });
+            transitional.unshift();
+          });
+          console.log(this.interactions.length, this.requirements.length)
+        },
+        Interaction: function (a, b) {
+          this.pivot = {
+            a: a,
+            b: b
+          };
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>
