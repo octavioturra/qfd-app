@@ -1,13 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="qfd-interactions" attributes="requirements">
+<polymer-element name="qfd-interactions">
   <template>
     <link rel="stylesheet" href="qfd-interactions.css">
-    <template repeat="{{o, a in interactions}}">
-      <template repeat="{{i, b in interactions | ofPivot(o)}}">
-         <template bind="{{i | getPosition(b)}}">
-           teste
-            <diamond-button style="top:{{i[1].y}}px;left:{{i[1].x}}px;" size="{{size}}"></diamond-button>   
+    <template repeat="{{o, a in requirements}}">
+        <template repeat="{{i, b in interactions | ofPivot(o)}}">
+          <template bind="{{p in i | getPosition(a, b)}}">
+
+            <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;" size="{{size}}"></diamond-button>
+<!--            <div style="width:40px;height:40px;top:{{p.y}}px;left:{{p.x}}px;position:absolute;background:red;text-align:center;line-height:40px;vergical-align:center;">{{i.pivot.a.id}}{{i.pivot.b.id}}</div>-->
          </template>
       </template>
     </template>
@@ -20,6 +21,9 @@
         interactions: [],
         requirements:[],
         size:40,
+        log: function(d){
+          console.log(d, '{{log}}')
+        },
         observe:{
           requirements:'processInteractions'
         },
@@ -30,14 +34,17 @@
             }
           });
         },
-        getPosition: function(item, index){
+        getPosition: function(item, ix, iy){
           var size = this.size;
-          var total = this.interactions.length;
+          //var index = ths.interactions.indexOf(item) % this.requirements.length;
+          var total = this.requirements.length;
+          console.log(iy, 'iy')
           var pivot = {
-            x: index * size,
-            y: total * size - index* (size/2)
+            x: ix * (size) + iy * (size/2),
+            y: (total/2) * size - iy * (size/2)
           };
-          return [item, pivot];
+          console.log(pivot, item.pivot.a.id, item.pivot.b.id);
+          return pivot;
         },
         ready:function(){
           this.processInteractions();
@@ -46,20 +53,26 @@
           if(this.requirements<2){
             return;
           }
-          var transitional = this.requirements;
+          var intermediary = this.requirements.slice(0);
           var that = this;
           this.interactions = [];
-          transitional.forEach(function(i){
-            transitional.filter(function(j){
+
+          function iterate(list){
+            var i = list.shift();
+            list.filter(function(j){
               if(i!=j){
                 return j;
               }
             }).forEach(function(j, n){
               that.interactions.push(new that.Interaction(i, j));
             });
-            transitional.unshift();
-          });
-          console.log(this.interactions.length, this.requirements.length)
+
+            if(list.length!=1){
+                iterate(list);
+            }
+          }
+          iterate(intermediary);
+          console.log(this.interactions)
         },
         Interaction: function (a, b) {
           this.pivot = {
