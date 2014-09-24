@@ -38,12 +38,10 @@
           var size = this.size;
           //var index = ths.interactions.indexOf(item) % this.requirements.length;
           var total = this.requirements.length;
-          console.log(iy, 'iy')
           var pivot = {
             x: ix * (size) + iy * (size/2),
             y: (total/2) * size - iy * (size/2)
           };
-          console.log(pivot, item.pivot.a.id, item.pivot.b.id);
           return pivot;
         },
         ready:function(){
@@ -72,7 +70,6 @@
             }
           }
           iterate(intermediary);
-          console.log(this.interactions)
         },
         Interaction: function (a, b) {
           this.pivot = {

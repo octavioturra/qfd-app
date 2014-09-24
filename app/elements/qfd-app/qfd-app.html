@@ -6,6 +6,8 @@
     
     <header>
      <paper-button on-click="{{add}}" label="add"></paper-button>
+     <paper-button on-click="{{remove}}" label="remove"></paper-button>
+
       <qfd-interactions id="interactions"></qfd-interactions>
     </header>
     
@@ -23,6 +25,9 @@
         add: function(){
           var last = this.requirements[this.requirements.length-1];
           this.requirements.push({id:last.id+1});
+        },
+        remove: function(){
+          this.requirements.pop();
         }
       });
 
