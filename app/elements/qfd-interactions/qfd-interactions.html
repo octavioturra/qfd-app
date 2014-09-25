@@ -4,13 +4,18 @@
   <template>
     <link rel="stylesheet" href="qfd-interactions.css">
     <template repeat="{{o, a in requirements}}">
-        <template repeat="{{i, b in interactions | ofPivot(o)}}">
-          <template bind="{{p in i | getPosition(a, b)}}">
+      <template repeat="{{i, b in interactions | ofPivot(o)}}">
+        <template bind="{{p in i | getPosition(a, b)}}">
 
-            <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;" size="{{size}}"></diamond-button>
-<!--            <div style="width:40px;height:40px;top:{{p.y}}px;left:{{p.x}}px;position:absolute;background:red;text-align:center;line-height:40px;vergical-align:center;">{{i.pivot.a.id}}{{i.pivot.b.id}}</div>-->
-         </template>
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;" size="{{size}}"></diamond-button>
+          <!--            <div style="width:40px;height:40px;top:{{p.y}}px;left:{{p.x}}px;position:absolute;background:red;text-align:center;line-height:40px;vergical-align:center;">{{i.pivot.a.id}}{{i.pivot.b.id}}</div>-->
+        </template>
       </template>
+    </template>
+    <template repeat="{{r, i in requirements}}">
+        <template bind="{{p in getPosition(null, i, 0, true)}}">
+          <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px">&nbsp;</div>
+        </template>
     </template>
   </template>
   <script>
@@ -19,13 +24,13 @@
 
       Polymer({
         interactions: [],
-        requirements:[],
-        size:40,
-        log: function(d){
-          console.log(d, '{{log}}')
+        requirements: [],
+        size: 40,
+        log: function (d, label) {
+          console.log(d, label||'{{log}}')
         },
-        observe:{
-          requirements:'processInteractions'
+        observe: {
+          requirements: 'processInteractions'
         },
         ofPivot: function (collection, pivot) {
           return collection.filter(function (i) {
@@ -34,39 +39,39 @@
             }
           });
         },
-        getPosition: function(item, ix, iy){
+        getPosition: function (item, ix, iy, fixed) {
           var size = this.size;
           //var index = ths.interactions.indexOf(item) % this.requirements.length;
           var total = this.requirements.length;
           var pivot = {
-            x: ix * (size) + iy * (size/2),
-            y: (total/2) * size - iy * (size/2)
+            x: ix * (size) + iy * (size / 2) + ((fixed) ? 0 : 20),
+            y: (total / 2) * size - iy * (size / 2)
           };
           return pivot;
         },
-        ready:function(){
+        ready: function () {
           this.processInteractions();
         },
-        processInteractions: function(){
-          if(this.requirements<2){
+        processInteractions: function () {
+          if (this.requirements < 2) {
             return;
           }
           var intermediary = this.requirements.slice(0);
           var that = this;
           this.interactions = [];
 
-          function iterate(list){
+          function iterate(list) {
             var i = list.shift();
-            list.filter(function(j){
-              if(i!=j){
+            list.filter(function (j) {
+              if (i != j) {
                 return j;
               }
-            }).forEach(function(j, n){
+            }).forEach(function (j, n) {
               that.interactions.push(new that.Interaction(i, j));
             });
 
-            if(list.length!=1){
-                iterate(list);
+            if (list.length != 1) {
+              iterate(list);
             }
           }
           iterate(intermediary);
