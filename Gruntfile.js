@@ -259,6 +259,12 @@ module.exports = function (grunt) {
           threshold: 80
         }
       }
+    },
+    'gh-pages':{
+      options: {
+        base: 'dist'
+      },
+      src: '**/*'
     }
   });
 
@@ -301,7 +307,10 @@ module.exports = function (grunt) {
     'usemin',
     'minifyHtml'
   ]);
-
+  grunt.registerTask('deploy', [
+    'build',
+    'gh-pages'
+  ]);
   grunt.registerTask('default', [
     'jshint',
     // 'test'
