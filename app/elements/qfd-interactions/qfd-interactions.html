@@ -11,9 +11,7 @@
           <!--            <div style="width:40px;height:40px;top:{{p.y}}px;left:{{p.x}}px;position:absolute;background:red;text-align:center;line-height:40px;vergical-align:center;">{{i.pivot.a.id}}{{i.pivot.b.id}}</div>-->
         </template>
       </template>
-    </template>
-    <template repeat="{{r, i in requirements}}">
-        <template bind="{{p in getPosition(null, i, 0, true)}}">
+      <template bind="{{p in interactions | getPosition(a, 0, true)}}">
           <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px">&nbsp;</div>
         </template>
     </template>
@@ -27,7 +25,7 @@
         requirements: [],
         size: 40,
         log: function (d, label) {
-          console.log(d, label||'{{log}}')
+          console.log(d, label || '{{log}}')
         },
         observe: {
           requirements: 'processInteractions'
