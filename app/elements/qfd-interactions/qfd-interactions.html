@@ -6,14 +6,12 @@
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
-
-          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;" size="{{size}}"></diamond-button>
-          <!--            <div style="width:40px;height:40px;top:{{p.y}}px;left:{{p.x}}px;position:absolute;background:red;text-align:center;line-height:40px;vergical-align:center;">{{i.pivot.a.id}}{{i.pivot.b.id}}</div>-->
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b}}" size="{{size}}" icon="menu"></diamond-button>
         </template>
       </template>
       <template bind="{{p in interactions | getPosition(a, 0, true)}}">
-          <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px">&nbsp;</div>
-        </template>
+        <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px;z-index:-1">&nbsp;</div>
+      </template>
     </template>
   </template>
   <script>
@@ -51,7 +49,7 @@
           this.processInteractions();
         },
         processInteractions: function () {
-          if (this.requirements < 2) {
+          if (this.requirements.length < 1) {
             return;
           }
           var intermediary = this.requirements.slice(0);
@@ -59,6 +57,9 @@
           this.interactions = [];
 
           function iterate(list) {
+            if (list.length == 1) {
+              return;
+            }
             var i = list.shift();
             list.filter(function (j) {
               if (i != j) {
@@ -68,9 +69,9 @@
               that.interactions.push(new that.Interaction(i, j));
             });
 
-            if (list.length != 1) {
-              iterate(list);
-            }
+
+            iterate(list);
+
           }
           iterate(intermediary);
         },
