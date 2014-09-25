@@ -3,31 +3,85 @@
 <polymer-element name="qfd-app" attributes="">
   <template>
     <link rel="stylesheet" href="qfd-app.css">
-    
-    <header>
-     <paper-button on-click="{{add}}" label="add"></paper-button>
-     <paper-button on-click="{{remove}}" label="remove"></paper-button>
 
-      <qfd-interactions id="interactions"></qfd-interactions>
+    <header>
+      <div id="requirementControls">
+        <div id="c1">
+          <paper-button on-click="{{add}}" label="add"></paper-button>
+          <paper-button on-click="{{remove}}" label="remove"></paper-button>
+        </div>
+        <div id="c2">
+          <paper-button on-click="{{add}}" label="add"></paper-button>
+          <paper-button on-click="{{remove}}" label="remove"></paper-button>
+        </div>
+      </div>
+      <div id="customerRequirements">
+        <qfd-interactions id="interactions"></qfd-interactions>
+        <template repeat="{{customerRequirements}}">
+          <div class="customerRequirement_container">
+            <input-fit value="{{description}}" class="customerRequirement"></input-fit>
+          </div>
+        </template>
+      </div>
+
     </header>
-    
-    
+    <aside id="requirements">
+      <template repeat="{{productRequirements}}">
+
+        <input-fit value="{{description}}" class="productRequirement"></input-fit>
+
+      </template>
+    </aside>
+    <main>
+
+    </main>
+    <aside id="requirementsEvaluation"></aside>
+    <footer></footer>
+
+
   </template>
   <script>
     (function () {
       'use strict';
 
       Polymer({
-        requirements: [{id:1},{id:2},{id:3},{id:4}],
-        ready:function(){
-          this.$.interactions.requirements = this.requirements;
+        productRequirements: [{
+          id: 1,
+          description: 'teste'
+        }, {
+          id: 2,
+          description: 'teste1'
+        }, {
+          id: 3,
+          description: 'teste2'
+        }, {
+          id: 4,
+          description: 'teste3'
+        }],
+        customerRequirements: [{
+          id: 1,
+          description: 'teste'
+        }, {
+          id: 2,
+          description: 'teste1'
+        }, {
+          id: 3,
+          description: 'teste2'
+        }, {
+          id: 4,
+          description: 'teste3'
+        }],
+        ready: function () {
+          this.$.interactions.requirements = this.customerRequirements;
         },
-        add: function(){
-          var last = this.requirements[this.requirements.length-1];
-          this.requirements.push({id:last.id+1});
+        add: function () {
+          var last = this.customerRequirements[this.customerRequirements.length - 1];
+          this.customerRequirements.push({
+            id: last.id + 1
+          });
         },
-        remove: function(){
-          this.requirements.pop();
+        remove: function () {
+          this.customerRequirements.pop();
         }
       });
 

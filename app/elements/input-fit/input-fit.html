@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="input-fit" attributes="minFontSize maxFontSize value">
+  <template>
+    <link rel="stylesheet" href="input-fit.css">
+    <textarea id="fit" value="{{value}}"></textarea>
+  </template>
+  <script>
+    Polymer({
+      minFontSize : 12,
+      maxFontSize : 18,
+      value : '',
+      textarea :  null,
+      computedCssNumber : function(prop){
+        return parseInt(window.getComputedStyle(this.textarea, null).getPropertyValue(prop).match(/\d+/))||0;
+      },
+      fitMiddlePadding : function(size, fontSize){
+        return (size - fontSize) / 2
+      },
+      shrink: function(that, size, ev){
+        var fontSize = that.computedCssNumber('font-size');
+          var width = that.computedCssNumber('width');
+
+          var length = that.textarea.value.length;
+
+          if (ev.keyCode != 8 && (fontSize * .6) * (length + 1) > width * 2) {
+            ev.preventDefault();
+            return false;
+          }
+
+          if (length == 0 && ev.keyCode == 8) {
+            ev.preventDefault();
+            return false;
+          }
+
+          var newFontSize = (width / length) * 1.5;
+
+          if (newFontSize >= that.minFontSize && newFontSize <= that.maxFontSize) {
+            that.textarea.style.fontSize = newFontSize + 'px';
+          } else if (newFontSize <= that.minFontSize) {
+            that.textarea.rows = 2;
+          } else if (newFontSize >= that.minFontSize) {
+            that.textarea.rows = 1;
+          }
+
+          that.textarea.style.paddingTop = ((that.textarea.rows == 1) ? that.fitMiddlePadding(size, newFontSize) : 0) + 'px';
+
+          that.fire('change');
+
+
+      },
+      ready: function () {
+        var that = this;
+        that.textarea = this.$.fit;
+
+        that.style.fontSize = this.maxFontSize + 'px';
+
+        var size = ((that.minFontSize + 3) * 2.3);
+        that.textarea.style.height = size + 'px';
+
+        that.textarea.addEventListener('keydown', function (ev) {
+          that.shrink(that, size, ev)
+        });
+      }
+    });
+  </script>
+</polymer-element>

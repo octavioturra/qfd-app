@@ -1,5 +1,6 @@
 :host {
   display: block;
+  position: relative;
 }
 .requirement-indicator{
   width:0;

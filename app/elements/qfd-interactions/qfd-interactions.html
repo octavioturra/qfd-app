@@ -2,6 +2,11 @@
 
 <polymer-element name="qfd-interactions">
   <template>
+     <style>
+      :host{
+        height:{{((requirements.length/2)*size)+size}}px;
+      }
+    </style>
     <link rel="stylesheet" href="qfd-interactions.css">
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">

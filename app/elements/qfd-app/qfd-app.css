@@ -1,3 +1,46 @@
 :host {
   display: block;
 }
+header{
+  display:block;
+  position:relative;
+}
+#requirementControls{
+  width:210px;
+  float:left;
+  display: block;
+  height:100%;
+  position:absolute;
+}
+#customerRequirements{
+  margin-left:210px;
+}
+#requirements{
+  width:210px;
+  float:left;
+  height:auto;
+  background: #F00;
+  text-align: center;
+}
+#requirementsEvaluation{
+  width:210px;
+  float:left;
+  height:auto;
+  background: #0F0;
+  text-align: center;
+}
+#requirements>*, #requirementsEvaluation>*{
+  width:100%;
+}
+.customerRequirement_container{
+  height:200px;
+  width:40px;
+  margin:0;
+  display: inline-block;
+  position: relative;
+  margin-left:-4px;
+}
+.customerRequirement{
+  transform: rotate(90deg) translateX(37px);
+  transform-origin: 37px 0 ;
+}
