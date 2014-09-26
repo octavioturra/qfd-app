@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 
 
-<polymer-element name="diamond-button" attributes="size icon iconSrc" extends="paper-focusable">
+<polymer-element name="diamond-button" attributes="size icon iconSrc action" extends="paper-focusable">
   <template>
     <style>
       :host {
@@ -36,7 +36,11 @@
       'use strict';
 
       Polymer({
-        size:40
+        size:40,
+        action: function(){throw new Error('Not implemented action.')},
+        ready: function(){
+          this.addEventListener('click', this.action)
+        }
       });
 
     })();

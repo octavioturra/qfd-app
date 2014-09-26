@@ -50,14 +50,14 @@
         position:relative;
       }
     </style>
-    <div id="quadrants">
+    <div id="quadrants" on-drop="{{doDrop}}">
       <template repeat="{{q, i in quadrants}}">
-        <div class="quadrant" on-dragenter="{{updateValue}}" data-index="{{i}}">
+        <div class="quadrant" on-dragover="{{updateValue}}" data-index="{{i}}">
           <template if="{{i==valueA}}">
-            <button draggable="true" data-value="A" on-drag="{{doDrag}}" on-drop="{{doDrop}}">x</button>
+            <button draggable="true" data-value="A" on-drag="{{doDrag}}" on-dragend="{{doDragend}}">x</button>
           </template>
           <template if="{{i==valueB}}">
-            <button draggable="true" data-value="B" on-drag="{{doDrag}}" on-drop="{{doDrop}}">o</button>
+            <button draggable="true" data-value="B" on-drag="{{doDrag}}" on-dragend="{{doDragend}}">o</button>
           </template>
         </div>
       </template>
@@ -82,9 +82,15 @@
         this.changing = e.dataset['value'];
         this.dragging = true;
         ev.dataTransfer.setData('key', this.dataset['key']);
+        ev.preventDefault();
       },
-      doDrop: function(){
+      doDragend: function(ev){
         this.dragging = false;
+        ev.preventDefault();
+      },
+      doDrop : function(ev){
+        this.dragging = false;
+        ev.preventDefault();
       },
       updateValue: function (ev, o, quadrant) {
         if(!this.dragging){
@@ -92,6 +98,7 @@
           return false;
         }
         this['value' + this.changing] = quadrant.dataset['index'];
+        ev.preventDefault();
       },
       prepareQuadrants: function () {
         this.quadrants = [];

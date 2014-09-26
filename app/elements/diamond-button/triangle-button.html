@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+
+<polymer-element name="triangle-button" attributes="size icon iconSrc action direction" >
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+
+        width:0;
+        height:0;
+        border-bottom:{{size/2}}px solid {{(direction==='top')?'lightgray':'transparent'}};
+        border-top:{{size/2}}px solid {{(direction==='bottom')?'lightgray':'transparent'}};
+        border-left:{{size/2}}px solid {{(direction==='right')?'lightgray':'transparent'}};
+        border-right:{{size/2}}px solid {{(direction==='left')?'lightgray':'transparent'}};
+
+        position: relative;
+        cursor:pointer;
+        text-align: center;
+      }
+      :host(:active){
+        -webkit-filter: brightness(0.9);
+        -moz-filter: brightness(0.9);
+        filter: brightness(0.9);
+      }
+      core-icon#glyph{
+        width:{{size/3}}px;
+        height:{{size/3}}px;
+      }
+      core-icon.top{
+        left:-{{size/6}}px;
+        top:{{size/50}}px;
+      }
+      core-icon.bottom{
+        left:-{{size/6}}px;
+        bottom:{{size/2}}px;
+      }
+      core-icon.left{
+        bottom:{{size/4}}px;
+        left:{{size/8}}px;
+      }
+      core-icon.right{
+        bottom:{{size/4}}px;
+        right:{{size/2.2}}px;
+      }
+    </style>
+    <template if="{{icon}}">
+      <core-icon icon="{{icon}}" iconSrc="{{iconSrc}}" id="glyph" class="{{direction}}"></core-icon>
+    </template>
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        size:40,
+        icon: 'check',
+        direction: 'top',
+        action: function(){throw new Error('Not implemented action.')},
+        ready: function(){
+          //console.log(this.action)
+          //this.addEventListener('click', this.action);
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

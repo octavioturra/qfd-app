@@ -2,6 +2,10 @@
   display: block;
   position: relative;
 }
+triangle-button{
+  bottom:0;
+  position: absolute;
+}
 .requirement-indicator{
   width:0;
   height:0;

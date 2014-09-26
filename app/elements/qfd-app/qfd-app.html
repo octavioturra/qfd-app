@@ -6,7 +6,7 @@
 
     <header>
       <div id="requirementControls">
-        <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headerAction="{{add}}" footerAction="{{add}}"></half-box>
+        <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headerIcon="add"></half-box>
       </div>
       <div id="customerRequirements">
         <qfd-interactions id="interactions"></qfd-interactions>
@@ -40,6 +40,7 @@
 
 
   </template>
+  <script src="../../bower_components/underscore/underscore.js"></script>
   <script>
     (function () {
       'use strict';
@@ -80,18 +81,21 @@
           relevance:{}
         }],
         ready: function () {
-          this.$.interactions.requirements = this.customerRequirements;
           var that = this;
-          this.$.halfBox.headerAction = function(){that.add()};
+          this.$.interactions.requirements = this.customerRequirements;
+          this.$.interactions.requirementAction = function(r){that.removeCustomerRequirement(r)};
+          var that = this;
+          this.$.halfBox.headerAction = function(){that.addCustomerRequirement()};
         },
-        add: function () {
+        addCustomerRequirement: function () {
           var last = this.customerRequirements[this.customerRequirements.length - 1];
           this.customerRequirements.push({
             id: last.id + 1
           });
         },
-        remove: function () {
-          this.customerRequirements.pop();
+        removeCustomerRequirement: function (r) {
+          this.customerRequirements = _(this.customerRequirements).without(r);
+          this.$.interactions.requirements = this.customerRequirements;
         }
       });
 

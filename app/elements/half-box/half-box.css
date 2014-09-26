@@ -35,6 +35,7 @@ footer>paper-button {
   display: block;
   height: 40px;
   width: 40px;
+  transform: rotate(-45deg);
 }
 header>paper-button {
   top: 0;
