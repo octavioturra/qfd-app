@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="qfd-interactions">
+<polymer-element name="qfd-interactions" attributes="requirementAction interactionAction">
   <template>
      <style>
       :host{
@@ -14,8 +14,9 @@
           <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="menu"></diamond-button>
         </template>
       </template>
-      <template bind="{{p in interactions | getPosition(a, 0, true)}}">
-        <div class="requirement-indicator" style="bottom:0;left:{{p.x}}px;z-index:0">&nbsp;</div>
+      <template bind="{{r in requirements | getPosition(a, 0, true)}}">
+<!--        <div class="requirement-indicator" style="bottom:0;left:{{p.x}}px;z-index:0" on-click="{{p.action}}">&nbsp;</div>-->
+            <triangle-button style="left:{{r.x}}px;" on-click="{{_requirementAction}}" data-requirement="{{a}}" icon="clear"></triangle-button>
       </template>
     </template>
   </template>
@@ -40,13 +41,19 @@
             }
           });
         },
+        requirementAction:function(){},
+        _requirementAction : function(ev,o,e){
+          var requirement = this.requirements[e.dataset.requirement];
+          this.requirementAction(requirement);
+        },
         getPosition: function (item, ix, iy, fixed) {
           var size = this.size;
           //var index = ths.interactions.indexOf(item) % this.requirements.length;
           var total = this.requirements.length;
           var pivot = {
             x: ix * (size) + iy * (size / 2) + ((fixed) ? 0 : 20),
-            y: (total / 2) * size - iy * (size / 2)
+            y: (total / 2) * size - iy * (size / 2),
+            item: item
           };
           return pivot;
         },

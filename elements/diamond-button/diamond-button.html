@@ -4,15 +4,15 @@
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 
 
-<polymer-element name="diamond-button" attributes="size icon iconSrc" extends="paper-focusable">
+<polymer-element name="diamond-button" attributes="size icon iconSrc action" extends="paper-focusable">
   <template>
     <style>
       :host {
         display: inline-block;
         width:{{size*0.7}}px;
         height:{{size*0.7}}px;
-        margin-left:{{size*.15}}px;
-        margin-top:{{size*.15}}px;
+        margin-left:{{size*0.15}}px;
+        margin-top:{{size*0.15}}px;
         position: relative;
         background: rgba(0,0,0,0.1);
          transform: rotate(45deg);
@@ -36,7 +36,11 @@
       'use strict';
 
       Polymer({
-        size:40
+        size:40,
+        action: function(){throw new Error('Not implemented action.')},
+        ready: function(){
+          this.addEventListener('click', this.action)
+        }
       });
 
     })();
