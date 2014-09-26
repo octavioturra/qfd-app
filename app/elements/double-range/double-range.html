@@ -54,10 +54,10 @@
       <template repeat="{{q, i in quadrants}}">
         <div class="quadrant" on-dragenter="{{updateValue}}" data-index="{{i}}">
           <template if="{{i==valueA}}">
-            <button draggable="true" data-value="A" on-drag="{{doDrag}}">x</button>
+            <button draggable="true" data-value="A" on-drag="{{doDrag}}" on-drop="{{doDrop}}">x</button>
           </template>
           <template if="{{i==valueB}}">
-            <button draggable="true" data-value="B" on-drag="{{doDrag}}">o</button>
+            <button draggable="true" data-value="B" on-drag="{{doDrag}}" on-drop="{{doDrop}}">o</button>
           </template>
         </div>
       </template>
@@ -74,13 +74,23 @@
       valueA: 0,
       valueB: 0,
       changing: 'A',
+      dragging: false,
       Quadrant: function () {
 
       },
       doDrag: function (ev, o, e) {
         this.changing = e.dataset['value'];
+        this.dragging = true;
+        ev.dataTransfer.setData('key', this.dataset['key']);
+      },
+      doDrop: function(){
+        this.dragging = false;
       },
       updateValue: function (ev, o, quadrant) {
+        if(!this.dragging){
+          ev.preventDefault();
+          return false;
+        }
         this['value' + this.changing] = quadrant.dataset['index'];
       },
       prepareQuadrants: function () {

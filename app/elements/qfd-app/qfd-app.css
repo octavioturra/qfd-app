@@ -1,14 +1,12 @@
 :host {
   display: block;
   width:100%;
-  background:#f9f9f9;
 }
 header{
   display:block;
   position:relative;
 }
 #content{
-  background:red;
   position:relative;
   display:block;
   display: inline-block;
@@ -28,14 +26,12 @@ header{
   width:210px;
   float:left;
   height:auto;
-  background: #F00;
   text-align: center;
 }
 #requirementsEvaluation{
   width:210px;
   float:left;
   height:auto;
-  background: #0F0;
   text-align: center;
 }
 #requirements>*, #requirementsEvaluation>*{
