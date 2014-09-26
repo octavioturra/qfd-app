@@ -853,9 +853,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </div><div hidden>
 
 
-<polymer-element name="diamond-button" attributes="size icon iconSrc" assetpath="diamond-button/">
+
+<polymer-element name="diamond-button" attributes="size icon iconSrc" extends="paper-focusable" assetpath="diamond-button/">
   <template>
-    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size.15}}px;margin-top:{{size.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#ccc;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent)}:host(:active){background-color:#aaa}</style>
+    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size.15}}px;margin-top:{{size.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#ccc;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent)}</style>
     <template if="{{icon}}">
       <core-icon icon="{{icon}}" iconsrc="{{iconSrc}}"></core-icon>
     </template>
@@ -902,11 +903,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
-          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b}}" size="{{size}}" icon="menu"></diamond-button>
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="menu"></diamond-button>
         </template>
       </template>
       <template bind="{{p in interactions | getPosition(a, 0, true)}}">
-        <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px;z-index:-1">&nbsp;</div>
+        <div class="requirement-indicator" style="bottom:0;left:{{p.x}}px;z-index:0">&nbsp;</div>
       </template>
     </template>
   </template>
