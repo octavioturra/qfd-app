@@ -805,18 +805,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="qfd-app" attributes="" assetpath="qfd-app/">
   <template>
-    <style>:host{display:block;width:100%;background:#f9f9f9}header{display:block;position:relative}#content{background:red;position:relative;display:block;display:inline-block;float:left}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#customerRequirements{margin-left:210px}#requirements{width:210px;float:left;height:auto;background:red;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;background:#0F0;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.customerRequirement_container{height:200px;width:40px;margin:0 0 0 -4px;display:inline-block;position:relative}.customerRequirement{-webkit-transform:rotate(90deg) translateX(37px);transform:rotate(90deg) translateX(37px);-webkit-transform-origin:37px 0;transform-origin:37px 0}#requirementsEvaluation double-range{display:block;margin-top:10px;margin-bottom:15px}</style>
+    <style>:host{display:block;width:100%}header{display:block;position:relative}#content{position:relative;display:block;display:inline-block;float:left}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#requirementControls half-box{width:200px;height:200px;position:absolute;bottom:0;right:-2px;background:#fff}#customerRequirements{margin-left:212px}#requirements{width:200px;margin-left:10px;float:left;height:auto;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.customerRequirement_container{height:201px;width:40px;margin:0 0 0 -4px;display:inline-block;position:relative}.customerRequirement{-webkit-transform:rotate(90deg) translateX(44px);transform:rotate(90deg) translateX(44px);-webkit-transform-origin:44px 0;transform-origin:44px 0}.requirementsEvaluation_container{height:40px;background:#fff;border:1px solid #d3d3d3}#requirementsEvaluation double-range{margin-top:10px}</style>
 
     <header>
       <div id="requirementControls">
-        <div id="c1">
-          <paper-button on-click="{{add}}" label="add"></paper-button>
-          <paper-button on-click="{{remove}}" label="remove"></paper-button>
-        </div>
-        <div id="c2">
-          <paper-button on-click="{{add}}" label="add"></paper-button>
-          <paper-button on-click="{{remove}}" label="remove"></paper-button>
-        </div>
+        <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headeraction="{{add}}" footeraction="{{add}}"></half-box>
       </div>
       <div id="customerRequirements">
         <qfd-interactions id="interactions"></qfd-interactions>
@@ -834,12 +827,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <input-fit value="{{description}}" class="productRequirement"></input-fit>
         </template>
       </aside>
-      <div id="content" style="width:{{customerRequirements.length*40}}px;height:{{productRequirements.length*40}}px">
+      <div id="content" style="width:{{customerRequirements.length*40+2}}px;height:{{productRequirements.length*40}}px">
         &nbsp;
       </div>
       <aside id="requirementsEvaluation">
         <template repeat="{{productRequirements}}">
-          <double-range valuea="{{relevance.inner}}" valueb="{{relevance.concurrent}}"></double-range>
+           <div class="requirementsEvaluation_container">
+              <double-range valuea="{{relevance.inner}}" valueb="{{relevance.concurrent}}"></double-range>
+           </div>
         </template>
       </aside>
     </main>
@@ -848,21 +843,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
   </template>
-  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],customerRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],ready:function(){this.$.interactions.requirements=this.customerRequirements},add:function(){var last=this.customerRequirements[this.customerRequirements.length-1];this.customerRequirements.push({id:last.id+1})},remove:function(){this.customerRequirements.pop()}})})();</script>
+  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],customerRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],ready:function(){this.$.interactions.requirements=this.customerRequirements;var that=this;this.$.halfBox.headerAction=function(){that.add()}},add:function(){var last=this.customerRequirements[this.customerRequirements.length-1];this.customerRequirements.push({id:last.id+1})},remove:function(){this.customerRequirements.pop()}})})();</script>
 </polymer-element>
 </div><div hidden>
 
 
 
+
+
 <polymer-element name="diamond-button" attributes="size icon iconSrc" extends="paper-focusable" assetpath="diamond-button/">
   <template>
-    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size.15}}px;margin-top:{{size.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#ccc;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent)}</style>
+    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size.15}}px;margin-top:{{size.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#d3d3d3;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent)}</style>
     <template if="{{icon}}">
       <core-icon icon="{{icon}}" iconsrc="{{iconSrc}}"></core-icon>
     </template>
+    <paper-ripple fit=""></paper-ripple>
 
   </template>
   <script>(function(){"use strict";Polymer("diamond-button",{size:40})})();</script>
+</polymer-element>
+</div><div hidden>
+/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+
+:host([disabled]) {
+  background: none !important;
+}
+
+:host([disabled]) /deep/ #icon {
+  fill: #c9c9c9;
+}
+
+:host(:not([fill])) /deep/ #focusBg {
+  border-radius: 50%;
+}
+
+<polymer-element name="half-box" attributes="header footer headerAction footerAction headerIcon footerIcon headerIconSrc footerIconSrc" assetpath="half-box/">
+  <template>
+    <style>:host{width:200px;height:200px;position:relative;overflow:hidden;border:1px solid #d3d3d3;box-sizing:border-box}svg{width:100%;height:100%;display:block;position:absolute}footer,header{height:22px;width:100%;position:absolute;-webkit-transform:rotate(45deg);transform:rotate(45deg);text-align:center}header{top:35%;left:10%}footer>paper-button,header>paper-button{position:absolute;left:0;right:0;margin:auto;display:block;height:40px;width:40px}header>paper-button{top:0;bottom:400%}footer{top:55%;left:-10%}footer>paper-button{top:400%;bottom:0}</style>
+    <svg>
+      <polygon fill="transparent" stroke="lightgray" points="0,0 1000,1000">
+    </polygon></svg>
+    <header>
+      {{footer}}
+      <template if="{{headerAction}}">
+        <paper-button icon="{{headerIcon}}" iconsrc="{{headerIconSrc}}" on-click="{{headerAction}}"></paper-button>
+      </template>
+    </header>
+    <footer>
+      {{header}}
+      <template if="{{footerAction}}">
+        <paper-button icon="{{footerIcon}}" iconsrc="{{footerIconSrc}}" on-click="{{footerAction}}"></paper-button>
+      </template>
+    </footer>
+
+
+  </template>
+  <script>(function(){"use strict";Polymer("half-box",{headerIcon:"expand-less",footerIcon:"expand-more",headerAction:function(){throw new Error("Not Implemented")},footerAction:function(){throw new Error("Not Implemented")}})})();</script>
 </polymer-element>
 </div><div hidden>
 
@@ -881,10 +921,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template repeat="{{q, i in quadrants}}">
         <div class="quadrant" on-dragenter="{{updateValue}}" data-index="{{i}}">
           <template if="{{i==valueA}}">
-            <button draggable="true" data-value="A" on-drag="{{doDrag}}">x</button>
+            <button draggable="true" data-value="A" on-drag="{{doDrag}}" on-drop="{{doDrop}}">x</button>
           </template>
           <template if="{{i==valueB}}">
-            <button draggable="true" data-value="B" on-drag="{{doDrag}}">o</button>
+            <button draggable="true" data-value="B" on-drag="{{doDrag}}" on-drop="{{doDrop}}">o</button>
           </template>
         </div>
       </template>
@@ -892,14 +932,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="bar">
     </div>
   </template>
-  <script>Polymer("double-range",{max:5,min:0,width:200,quadrants:[],valueA:0,valueB:0,changing:"A",Quadrant:function(){},doDrag:function(ev,o,e){this.changing=e.dataset["value"]},updateValue:function(ev,o,quadrant){this["value"+this.changing]=quadrant.dataset["index"]},prepareQuadrants:function(){this.quadrants=[];for(var q=this.min;q<this.max;q+=1){this.quadrants.push(new this.Quadrant)}},ready:function(){this.prepareQuadrants()}});</script>
+  <script>Polymer("double-range",{max:5,min:0,width:200,quadrants:[],valueA:0,valueB:0,changing:"A",dragging:false,Quadrant:function(){},doDrag:function(ev,o,e){this.changing=e.dataset["value"];this.dragging=true;ev.dataTransfer.setData("key",this.dataset["key"])},doDrop:function(){this.dragging=false},updateValue:function(ev,o,quadrant){if(!this.dragging){ev.preventDefault();return false}this["value"+this.changing]=quadrant.dataset["index"]},prepareQuadrants:function(){this.quadrants=[];for(var q=this.min;q<this.max;q+=1){this.quadrants.push(new this.Quadrant)}},ready:function(){this.prepareQuadrants()}});</script>
 </polymer-element>
 </div><div hidden>
 
 <polymer-element name="qfd-interactions" assetpath="qfd-interactions/">
   <template>
      <style>:host{height:{{((requirements.length/2)*size)+size}}px}</style>
-    <style>:host{display:block;position:relative}.requirement-indicator{width:0;height:0;border-bottom:20px solid #000;border-top:20px solid transparent;border-left:20px solid transparent;border-right:20px solid transparent;position:absolute}</style>
+    <style>:host{display:block;position:relative}.requirement-indicator{width:0;height:0;border-bottom:20px solid #d3d3d3;border-top:20px solid transparent;border-left:20px solid transparent;border-right:20px solid transparent;position:absolute}</style>
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
@@ -917,7 +957,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="input-fit" attributes="minFontSize maxFontSize value" assetpath="input-fit/">
   <template>
-    <style>:host{display:inline-block;width:200px}textarea{width:100%;resize:none;text-align:center;box-sizing:border-box}</style>
+    <style>:host{display:inline-block;width:200px;border:1px solid #d3d3d3;background:#fff;box-sizing:border-box}textarea{width:100%;resize:none;text-align:center;box-sizing:border-box;border:none;background:0 0}</style>
     <textarea id="fit" value="{{value}}"></textarea>
   </template>
   <script>Polymer("input-fit",{minFontSize:12,maxFontSize:18,value:"",textarea:null,computedCssNumber:function(prop){return parseInt(window.getComputedStyle(this.textarea,null).getPropertyValue(prop).match(/\d+/))||0},fitMiddlePadding:function(size,fontSize){return(size-fontSize)/2},shrink:function(that,size,ev){var fontSize=that.computedCssNumber("font-size");var width=that.computedCssNumber("width");var length=that.textarea.value.length;if(ev.keyCode!=8&&fontSize*.6*(length+1)>width*2){ev.preventDefault();return false}if(length==0&&ev.keyCode==8){ev.preventDefault();return false}var newFontSize=width/length*1.5;if(newFontSize>=that.minFontSize&&newFontSize<=that.maxFontSize){that.textarea.style.fontSize=newFontSize+"px"}else if(newFontSize<=that.minFontSize){that.textarea.rows=2}else if(newFontSize>=that.minFontSize){that.textarea.rows=1}that.textarea.style.paddingTop=(that.textarea.rows==1?that.fitMiddlePadding(size,newFontSize):0)+"px";that.fire("change")},ready:function(){var that=this;that.textarea=this.$.fit;that.style.fontSize=this.maxFontSize+"px";var size=(that.minFontSize+3)*2.3;that.textarea.style.height=size+"px";that.textarea.addEventListener("keydown",function(ev){that.shrink(that,size,ev)})}});</script>
