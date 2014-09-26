@@ -11,11 +11,11 @@
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
-          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b}}" size="{{size}}" icon="menu"></diamond-button>
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="menu"></diamond-button>
         </template>
       </template>
       <template bind="{{p in interactions | getPosition(a, 0, true)}}">
-        <div class="requirement-indicator" style="top:{{p.y}}px;left:{{p.x}}px;z-index:-1">&nbsp;</div>
+        <div class="requirement-indicator" style="bottom:0;left:{{p.x}}px;z-index:0">&nbsp;</div>
       </template>
     </template>
   </template>
