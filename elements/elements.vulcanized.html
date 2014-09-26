@@ -805,7 +805,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="qfd-app" attributes="" assetpath="qfd-app/">
   <template>
-    <style>:host{display:block}header{display:block;position:relative}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#customerRequirements{margin-left:210px}#requirements{width:210px;float:left;height:auto;background:red;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;background:#0F0;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.customerRequirement_container{height:200px;width:40px;margin:0 0 0 -4px;display:inline-block;position:relative}.customerRequirement{-webkit-transform:rotate(90deg) translateX(37px);transform:rotate(90deg) translateX(37px);-webkit-transform-origin:37px 0;transform-origin:37px 0}</style>
+    <style>:host{display:block;width:100%;background:#f9f9f9}header{display:block;position:relative}#content{background:red;position:relative;display:block;display:inline-block;float:left}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#customerRequirements{margin-left:210px}#requirements{width:210px;float:left;height:auto;background:red;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;background:#0F0;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.customerRequirement_container{height:200px;width:40px;margin:0 0 0 -4px;display:inline-block;position:relative}.customerRequirement{-webkit-transform:rotate(90deg) translateX(37px);transform:rotate(90deg) translateX(37px);-webkit-transform-origin:37px 0;transform-origin:37px 0}#requirementsEvaluation double-range{display:block;margin-top:10px;margin-bottom:15px}</style>
 
     <header>
       <div id="requirementControls">
@@ -828,22 +828,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
     </header>
-    <aside id="requirements">
-      <template repeat="{{productRequirements}}">
-
-        <input-fit value="{{description}}" class="productRequirement"></input-fit>
-
-      </template>
-    </aside>
     <main>
-
+      <aside id="requirements">
+        <template repeat="{{productRequirements}}">
+          <input-fit value="{{description}}" class="productRequirement"></input-fit>
+        </template>
+      </aside>
+      <div id="content" style="width:{{customerRequirements.length*40}}px;height:{{productRequirements.length*40}}px">
+        &nbsp;
+      </div>
+      <aside id="requirementsEvaluation">
+        <template repeat="{{productRequirements}}">
+          <double-range valuea="{{relevance.inner}}" valueb="{{relevance.concurrent}}"></double-range>
+        </template>
+      </aside>
     </main>
-    <aside id="requirementsEvaluation"></aside>
+
     <footer></footer>
 
 
   </template>
-  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste"},{id:2,description:"teste1"},{id:3,description:"teste2"},{id:4,description:"teste3"}],customerRequirements:[{id:1,description:"teste"},{id:2,description:"teste1"},{id:3,description:"teste2"},{id:4,description:"teste3"}],ready:function(){this.$.interactions.requirements=this.customerRequirements},add:function(){var last=this.customerRequirements[this.customerRequirements.length-1];this.customerRequirements.push({id:last.id+1})},remove:function(){this.customerRequirements.pop()}})})();</script>
+  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],customerRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],ready:function(){this.$.interactions.requirements=this.customerRequirements},add:function(){var last=this.customerRequirements[this.customerRequirements.length-1];this.customerRequirements.push({id:last.id+1})},remove:function(){this.customerRequirements.pop()}})})();</script>
 </polymer-element>
 </div><div hidden>
 
@@ -868,11 +873,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </polymer-element>
 </div><div hidden>
 
-<polymer-element name="icon-range" attributes="" assetpath="icon-range/">
+<polymer-element name="double-range" attributes="values max min width valueA valueB" assetpath="double-range/">
   <template>
-    <style>:host{display:block}</style>
+    <style>:host{position:relative;height:22px;display:inline-block;width:{{width}}px}#bar{width:90%;height:0;border-top:2px groove;position:absolute;top:0;bottom:0;left:5%;margin:auto}button{position:absolute;top:0;bottom:0;background:gray;color:#fff;border:none;border-radius:100%;font-size:10px;cursor:pointer;outline:0;z-index:1}button[data-value=A]{left:0}button[data-value=B]{right:0}#quadrants{margin-left:2px}.quadrant{margin:1px;height:20px;width:{{width/(max-min)-6}}px;position:relative;display:inline-block;position:relative}</style>
+    <div id="quadrants">
+      <template repeat="{{q, i in quadrants}}">
+        <div class="quadrant" on-dragenter="{{updateValue}}" data-index="{{i}}">
+          <template if="{{i==valueA}}">
+            <button draggable="true" data-value="A" on-drag="{{doDrag}}">x</button>
+          </template>
+          <template if="{{i==valueB}}">
+            <button draggable="true" data-value="B" on-drag="{{doDrag}}">o</button>
+          </template>
+        </div>
+      </template>
+    </div>
+    <div id="bar">
+    </div>
   </template>
-  <script>(function(){"use strict";Polymer("icon-range",{})})();</script>
+  <script>Polymer("double-range",{max:5,min:0,width:200,quadrants:[],valueA:0,valueB:0,changing:"A",Quadrant:function(){},doDrag:function(ev,o,e){this.changing=e.dataset["value"]},updateValue:function(ev,o,quadrant){this["value"+this.changing]=quadrant.dataset["index"]},prepareQuadrants:function(){this.quadrants=[];for(var q=this.min;q<this.max;q+=1){this.quadrants.push(new this.Quadrant)}},ready:function(){this.prepareQuadrants()}});</script>
 </polymer-element>
 </div><div hidden>
 
