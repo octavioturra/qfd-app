@@ -25,17 +25,22 @@
       </div>
 
     </header>
-    <aside id="requirements">
-      <template repeat="{{productRequirements}}">
-
-        <input-fit value="{{description}}" class="productRequirement"></input-fit>
-
-      </template>
-    </aside>
     <main>
-
+      <aside id="requirements">
+        <template repeat="{{productRequirements}}">
+          <input-fit value="{{description}}" class="productRequirement"></input-fit>
+        </template>
+      </aside>
+      <div id="content" style="width:{{customerRequirements.length*40}}px;height:{{productRequirements.length*40}}px">
+        &nbsp;
+      </div>
+      <aside id="requirementsEvaluation">
+        <template repeat="{{productRequirements}}">
+          <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+        </template>
+      </aside>
     </main>
-    <aside id="requirementsEvaluation"></aside>
+
     <footer></footer>
 
 
@@ -47,29 +52,37 @@
       Polymer({
         productRequirements: [{
           id: 1,
-          description: 'teste'
+          description: 'teste',
+          relevance:{}
         }, {
           id: 2,
-          description: 'teste1'
+          description: 'teste1',
+          relevance:{}
         }, {
           id: 3,
-          description: 'teste2'
+          description: 'teste2',
+          relevance:{}
         }, {
           id: 4,
-          description: 'teste3'
+          description: 'teste3',
+          relevance:{}
         }],
         customerRequirements: [{
           id: 1,
-          description: 'teste'
+          description: 'teste',
+          relevance:{}
         }, {
           id: 2,
-          description: 'teste1'
+          description: 'teste1',
+          relevance:{}
         }, {
           id: 3,
-          description: 'teste2'
+          description: 'teste2',
+          relevance:{}
         }, {
           id: 4,
-          description: 'teste3'
+          description: 'teste3',
+          relevance:{}
         }],
         ready: function () {
           this.$.interactions.requirements = this.customerRequirements;

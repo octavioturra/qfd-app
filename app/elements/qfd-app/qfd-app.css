@@ -1,9 +1,18 @@
 :host {
   display: block;
+  width:100%;
+  background:#f9f9f9;
 }
 header{
   display:block;
   position:relative;
+}
+#content{
+  background:red;
+  position:relative;
+  display:block;
+  display: inline-block;
+  float:left;
 }
 #requirementControls{
   width:210px;
@@ -43,4 +52,9 @@ header{
 .customerRequirement{
   transform: rotate(90deg) translateX(37px);
   transform-origin: 37px 0 ;
+}
+#requirementsEvaluation double-range{
+  display:block;
+  margin-top:10px;
+  margin-bottom:15px;
 }

@@ -1,0 +1,97 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="double-range" attributes="values max min width valueA valueB">
+  <template>
+    <style>
+      :host {
+        position: relative;
+        height: 22px;
+        display: inline-block;
+        width: {{width}}px;
+      }
+      #bar {
+        width: 90%;
+        height: 0;
+        border-top: 2px groove;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 5%;
+        margin: auto;
+      }
+      button {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: gray;
+        color: white;
+        border: none;
+        border-radius: 100%;
+        font-size: 10px;
+        cursor: pointer;
+        outline: 0;
+        z-index: 1;
+      }
+      button[data-value=A] {
+        left: 0;
+      }
+      button[data-value=B] {
+        right: 0;
+      }
+      #quadrants {
+        margin-left: 2px;
+      }
+      .quadrant {
+        margin: 1px;
+        height: 20px;
+        width: {{width/(max-min)-6}}px;
+        position:relative;
+        display:inline-block;
+        position:relative;
+      }
+    </style>
+    <div id="quadrants">
+      <template repeat="{{q, i in quadrants}}">
+        <div class="quadrant" on-dragenter="{{updateValue}}" data-index="{{i}}">
+          <template if="{{i==valueA}}">
+            <button draggable="true" data-value="A" on-drag="{{doDrag}}">x</button>
+          </template>
+          <template if="{{i==valueB}}">
+            <button draggable="true" data-value="B" on-drag="{{doDrag}}">o</button>
+          </template>
+        </div>
+      </template>
+    </div>
+    <div id="bar">
+    </div>
+  </template>
+  <script>
+    Polymer('double-range', {
+      max: 5,
+      min: 0,
+      width: 200,
+      quadrants: [],
+      valueA: 0,
+      valueB: 0,
+      changing: 'A',
+      Quadrant: function () {
+
+      },
+      doDrag: function (ev, o, e) {
+        this.changing = e.dataset['value'];
+      },
+      updateValue: function (ev, o, quadrant) {
+        this['value' + this.changing] = quadrant.dataset['index'];
+      },
+      prepareQuadrants: function () {
+        this.quadrants = [];
+        for (var q = this.min; q < this.max; q += 1) {
+          this.quadrants.push(new this.Quadrant());
+        }
+      },
+      ready: function () {
+        this.prepareQuadrants();
+      }
+    });
+  </script>
+</polymer-element>
