@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.css">
+
+<polymer-element name="half-box" attributes="header footer headerAction footerAction headerIcon footerIcon headerIconSrc footerIconSrc">
+  <template>
+    <link rel="stylesheet" href="half-box.css">
+    <svg>
+      <polygon fill="transparent" stroke="lightgray" points="0,0 1000,1000" />
+    </svg>
+    <header>
+      {{footer}}
+      <template if="{{headerAction}}">
+        <paper-button icon="{{headerIcon}}" iconSrc="{{headerIconSrc}}" on-click="{{headerAction}}"></paper-button>
+      </template>
+    </header>
+    <footer>
+      {{header}}
+      <template if="{{footerAction}}">
+        <paper-button icon="{{footerIcon}}" iconSrc="{{footerIconSrc}}" on-click="{{footerAction}}"></paper-button>
+      </template>
+    </footer>
+
+
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        headerIcon: 'expand-less',
+        footerIcon: 'expand-more',
+        headerAction: function(){throw new Error('Not Implemented');},
+        footerAction: function(){throw new Error('Not Implemented');}
+      });
+
+    })();
+  </script>
+</polymer-element>

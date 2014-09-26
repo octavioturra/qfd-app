@@ -19,11 +19,20 @@ header{
   height:100%;
   position:absolute;
 }
+#requirementControls half-box{
+  width:200px;
+  height:200px;
+  position:absolute;
+  bottom:0;
+  right:-2px;
+  background: white;
+}
 #customerRequirements{
-  margin-left:210px;
+  margin-left:212px;
 }
 #requirements{
-  width:210px;
+  width:200px;
+  margin-left:10px;
   float:left;
   height:auto;
   text-align: center;
@@ -38,7 +47,7 @@ header{
   width:100%;
 }
 .customerRequirement_container{
-  height:200px;
+  height:201px;
   width:40px;
   margin:0;
   display: inline-block;
@@ -46,11 +55,14 @@ header{
   margin-left:-4px;
 }
 .customerRequirement{
-  transform: rotate(90deg) translateX(37px);
-  transform-origin: 37px 0 ;
+  transform: rotate(90deg) translateX(44px);
+  transform-origin: 44px 0 ;
+}
+.requirementsEvaluation_container{
+  height:40px;
+  background: #fff;
+  border: 1px solid lightgray;
 }
 #requirementsEvaluation double-range{
-  display:block;
-  margin-top:10px;
-  margin-bottom:15px;
+  margin-top:10px
 }
