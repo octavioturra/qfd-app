@@ -25,7 +25,7 @@
         </template>
       </aside>
       <div id="content" style="width:{{customerRequirements.length*40+2}}px;height:{{productRequirements.length*40}}px">
-        &nbsp;
+        <button-grid size="40" id="grid"></button-grid>
       </div>
       <aside id="requirementsEvaluation">
         <template repeat="{{productRequirements}}">
@@ -86,6 +86,22 @@
           this.$.interactions.requirementAction = function(r){that.removeCustomerRequirement(r)};
           var that = this;
           this.$.halfBox.headerAction = function(){that.addCustomerRequirement()};
+          this.prepareGrid();
+        },
+        prepareGrid: function(){
+          var grid = [];
+          
+          _(this.productRequirements).each(function(pr){
+            var row = [];
+            _(this.cutomerRequirements).each(function(cr){
+              row.push({
+                x:pr,
+                y:cr
+              });
+            });
+            grid.push(row);
+          });
+          this.$.grid.grid = grid;
         },
         addCustomerRequirement: function () {
           var last = this.customerRequirements[this.customerRequirements.length - 1];

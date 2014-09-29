@@ -1,8 +1,22 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<polymer-element name="button-grid" attributes="">
+<polymer-element name="button-grid" attributes="grid size">
   <template>
     <link rel="stylesheet" href="button-grid.css">
+    <style>
+      paper-button{
+        width:{{size}}px;
+        height:{{size}}px;
+      }
+    </style>
+    <template repeat="{{x in grid}}">
+      <div class="row">
+        <template repeat="{{y in grid[x]}}">
+          <paper-button></paper-button>
+        </template>
+      </div>
+    </template>
   </template>
   <script>
     (function () {
