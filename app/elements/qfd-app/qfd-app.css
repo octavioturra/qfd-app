@@ -13,27 +13,26 @@ header{
   float:left;
 }
 #requirementControls{
-  width:210px;
+  width:240px;
   float:left;
   display: block;
   height:100%;
   position:absolute;
 }
 #requirementControls half-box{
-  width:200px;
-  height:200px;
+  width:240px;
+  height:240px;
   position:absolute;
   bottom:0;
   right:-2px;
   background: white;
 }
 #productRequirements{
-  margin-left:212px;
+  margin-left:242px;
   overflow: auto;
 }
 #requirements{
-  width:200px;
-  margin-left:10px;
+  width:242px;
   float:left;
   height:auto;
   text-align: center;
@@ -48,7 +47,7 @@ header{
   width:100%;
 }
 .productRequirement_container{
-  height:201px;
+  height:240px;
   width:40px;
   margin:0;
   display: block;
@@ -56,13 +55,17 @@ header{
   position: relative;
 }
 .productRequirement{
-  transform: rotate(90deg);
+  transform: rotate(90deg) translateX(40px);
   transform-origin: 20px 20px;
   height: 40px;
+  width:200px;
 }
 .customerRequirement_container{
-  width :201px;
   height:40px;
+  display:flex;
+}
+.customerRequirement{
+  width:160px;
 }
 .requirementsEvaluation_container{
   width :201px;
@@ -73,4 +76,21 @@ header{
 }
 #requirementsEvaluation double-range{
   margin-top:10px
+}
+.direction{
+  height:40px;
+  width:40px;
+  background-color: lightgray;
+  background-image: linear-gradient(45deg, rgba(0,0,0,.3),transparent);
+  margin:0;
+  border-radius: 0;
+  position:absolute;
+}
+.removeCustomerRequirement{
+  height:40px;
+  width:40px;
+  background-color: lightgray;
+  background-image: linear-gradient(45deg, rgba(0,0,0,.3),transparent);
+  margin:0;
+  border-radius: 0;
 }
