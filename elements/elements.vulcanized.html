@@ -805,17 +805,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="qfd-app" attributes="" assetpath="qfd-app/">
   <template>
-    <style>:host{display:block;width:100%}header{display:block;position:relative}#content{position:relative;display:block;display:inline-block;float:left}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#requirementControls half-box{width:200px;height:200px;position:absolute;bottom:0;right:-2px;background:#fff}#customerRequirements{margin-left:212px}#requirements{width:200px;margin-left:10px;float:left;height:auto;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.customerRequirement_container{height:201px;width:40px;margin:0 0 0 -4px;display:inline-block;position:relative}.customerRequirement{-webkit-transform:rotate(90deg) translateX(44px);transform:rotate(90deg) translateX(44px);-webkit-transform-origin:44px 0;transform-origin:44px 0}.requirementsEvaluation_container{height:40px;background:#fff;border:1px solid #d3d3d3}#requirementsEvaluation double-range{margin-top:10px}</style>
+    <style>:host{display:block;width:100%}header{display:block;position:relative}#content{position:relative;display:block;display:inline-block;float:left}#requirementControls{width:210px;float:left;display:block;height:100%;position:absolute}#requirementControls half-box{width:200px;height:200px;position:absolute;bottom:0;right:-2px;background:#fff}#productRequirements{margin-left:212px;overflow:auto}#requirements{width:200px;margin-left:10px;float:left;height:auto;text-align:center}#requirementsEvaluation{width:210px;float:left;height:auto;text-align:center}#requirements>*,#requirementsEvaluation>*{width:100%}.productRequirement_container{height:201px;width:40px;margin:0;display:block;float:left;position:relative}.productRequirement{-webkit-transform:rotate(90deg);transform:rotate(90deg);-webkit-transform-origin:20px 20px;transform-origin:20px 20px;height:40px}.customerRequirement_container{width:201px;height:40px}.requirementsEvaluation_container{width:201px;height:40px;box-sizing:border-box;background:#fff;border:1px solid #d3d3d3}#requirementsEvaluation double-range{margin-top:10px}</style>
 
     <header>
       <div id="requirementControls">
-        <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headericon="add"></half-box>
+        <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headericon="add" footericon="add"></half-box>
       </div>
-      <div id="customerRequirements">
+      <div id="productRequirements">
         <qfd-interactions id="interactions"></qfd-interactions>
-        <template repeat="{{customerRequirements}}">
-          <div class="customerRequirement_container">
-            <input-fit value="{{description}}" class="customerRequirement"></input-fit>
+        <template repeat="{{productRequirements}}">
+          <div class="productRequirement_container">
+            <input-fit value="{{description}}" class="productRequirement"></input-fit>
           </div>
         </template>
       </div>
@@ -823,18 +823,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </header>
     <main>
       <aside id="requirements">
-        <template repeat="{{productRequirements}}">
-          <input-fit value="{{description}}" class="productRequirement"></input-fit>
+        <template repeat="{{customerRequirements}}">
+          <div class="customerRequirement_container">
+            <input-fit value="{{description}}" class="customerRequirement"></input-fit>
+          </div>
         </template>
       </aside>
-      <div id="content" style="width:{{customerRequirements.length*40+2}}px;height:{{productRequirements.length*40}}px">
-        &nbsp;
+      <div id="content" style="width:{{productRequirements.length*40+2}}px;height:{{customerRequirements.length*40}}px">
+        <button-grid size="40" id="grid"></button-grid>
       </div>
       <aside id="requirementsEvaluation">
-        <template repeat="{{productRequirements}}">
-           <div class="requirementsEvaluation_container">
-              <double-range valuea="{{relevance.inner}}" valueb="{{relevance.concurrent}}"></double-range>
-           </div>
+        <template repeat="{{customerRequirements}}">
+          <div class="requirementsEvaluation_container">
+            <double-range valuea="{{relevance.inner}}" valueb="{{relevance.concurrent}}"></double-range>
+          </div>
         </template>
       </aside>
     </main>
@@ -844,7 +846,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
   <script src="../bower_components/underscore/underscore.js"></script>
-  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],customerRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],ready:function(){var that=this;this.$.interactions.requirements=this.customerRequirements;this.$.interactions.requirementAction=function(r){that.removeCustomerRequirement(r)};var that=this;this.$.halfBox.headerAction=function(){that.addCustomerRequirement()}},addCustomerRequirement:function(){var last=this.customerRequirements[this.customerRequirements.length-1];this.customerRequirements.push({id:last.id+1})},removeCustomerRequirement:function(r){this.customerRequirements=_(this.customerRequirements).without(r);this.$.interactions.requirements=this.customerRequirements}})})();</script>
+  <script>(function(){"use strict";Polymer("qfd-app",{productRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],customerRequirements:[{id:1,description:"teste",relevance:{}},{id:2,description:"teste1",relevance:{}},{id:3,description:"teste2",relevance:{}},{id:4,description:"teste3",relevance:{}}],observe:{productRequirements:"prepareGrid",customerRequirements:"prepareGrid"},ready:function(){var that=this;this.$.interactions.requirements=this.productRequirements;this.$.interactions.requirementAction=function(r){that.removeProductRequirement(r)};var that=this;this.$.halfBox.headerAction=function(){that.addProductRequirement()};this.$.halfBox.footerAction=function(){that.addCustomerRequirement()};this.prepareGrid()},prepareGrid:function(){var grid=[];var self=this;_(self.customerRequirements).each(function(pr){var row=[];_(self.productRequirements).each(function(cr){row.push({id:_.uniqueId(),y:pr,x:cr,interaction:0})});grid.push(row)});console.log(grid);this.$.grid.grid=grid},addProductRequirement:function(){this.productRequirements.push({id:_.uniqueId()})},addCustomerRequirement:function(){this.customerRequirements.push({id:_.uniqueId()})},removeCustomerRequirement:function(r){if(confirm("Do you want to delete this item?")==false){return}this.customerRequirements=_(this.customerRequirements).without(r)},removeProductRequirement:function(r){if(confirm("Do you want to delete this item?")==false){return}this.productRequirements=_(this.productRequirements).without(r);this.$.interactions.requirements=this.productRequirements}})})();</script>
 </polymer-element>
 </div><div hidden>
 
@@ -854,14 +856,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="diamond-button" attributes="size icon iconSrc action" extends="paper-focusable" assetpath="diamond-button/">
   <template>
-    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size*0.15}}px;margin-top:{{size*0.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#d3d3d3;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent)}</style>
+    <style>:host{display:inline-block;width:{{size*0.7}}px;height:{{size*0.7}}px;margin-left:{{size*0.15}}px;margin-top:{{size*0.15}}px;position:relative;background:rgba(0,0,0,.1);transform:rotate(45deg);cursor:pointer;text-align:center;background-color:#d3d3d3;background-image:linear-gradient(45deg,rgba(0,0,0,.1),transparent);text-align:center;outline:0}core-icon{transform:rotate(-45deg);width:20px;height:20px;position:absolute;top:0;right:0;left:0;bottom:0;margin:auto}</style>
     <template if="{{icon}}">
       <core-icon icon="{{icon}}" iconsrc="{{iconSrc}}"></core-icon>
     </template>
     <paper-ripple fit=""></paper-ripple>
 
   </template>
-  <script>(function(){"use strict";Polymer("diamond-button",{size:40,action:function(){throw new Error("Not implemented action.")},ready:function(){this.addEventListener("click",this.action)}})})();</script>
+  <script>(function(){"use strict";Polymer("diamond-button",{size:40})})();</script>
 </polymer-element>
 </div><div hidden>
 
@@ -919,11 +921,20 @@ license that can be found in the LICENSE file.
 </polymer-element>
 </div><div hidden>
 
-<polymer-element name="button-grid" attributes="" assetpath="button-grid/">
+
+<polymer-element name="button-grid" attributes="grid size" assetpath="button-grid/">
   <template>
-    <style>:host{display:block}</style>
+    <style>:host{display:block}paper-button{display:inline-block;background:#ccc;margin:0}.row{padding:0;display:block;width:100%;background:red}</style>
+    <style>paper-button{width:{{size}}px;height:{{size}}px;box-sizing:border-box;float:left;border-radius:0;background-color:#d3d3d3;background-image:linear-gradient(45deg,rgba(0,0,0,.3),transparent)}</style>
+    <template repeat="{{x, i in grid}}">
+      <div class="row">
+        <template repeat="{{y in grid[i]}}">
+          <paper-button icon="{{interactionIcons[y.interaction]}}" fill="" on-click="{{changeInteraction}}" data-id="{{y.id}}"></paper-button>
+        </template>
+      </div>
+    </template>
   </template>
-  <script>(function(){"use strict";Polymer("button-grid",{})})();</script>
+  <script>(function(){"use strict";Polymer("button-grid",{grid:[[]],interactionIcons:["","check-circle-outline-blank","check-circle-blank","error"],changeInteraction:function(ev,i,o,d){var int=null;_(this.grid).each(function(x){return _(x).each(function(y){if(y.id==o.dataset["id"]){int=y}})});int.interaction=(int.interaction+1)%this.interactionIcons.length}})})();</script>
 </polymer-element>
 </div><div hidden>
 
@@ -956,7 +967,7 @@ license that can be found in the LICENSE file.
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
-          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="menu"></diamond-button>
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="{{interactionIcons[i.interactionType]}}" on-click="{{changeInteractionType}}" data-id="{{i.id}}"></diamond-button>
         </template>
       </template>
       <template bind="{{r in requirements | getPosition(a, 0, true)}}">
@@ -965,7 +976,7 @@ license that can be found in the LICENSE file.
       </template>
     </template>
   </template>
-  <script>(function(){"use strict";Polymer("qfd-interactions",{interactions:[],requirements:[],size:40,log:function(d,label){console.log(d,label||"{{log}}")},observe:{requirements:"processInteractions"},ofPivot:function(collection,pivot){return collection.filter(function(i){if(i.pivot.a==pivot){return i}})},requirementAction:function(){},_requirementAction:function(ev,o,e){var requirement=this.requirements[e.dataset.requirement];this.requirementAction(requirement)},getPosition:function(item,ix,iy,fixed){var size=this.size;var total=this.requirements.length;var pivot={x:ix*size+iy*(size/2)+(fixed?0:20),y:total/2*size-iy*(size/2),item:item};return pivot},ready:function(){this.processInteractions()},processInteractions:function(){if(this.requirements.length<1){return}var intermediary=this.requirements.slice(0);var that=this;this.interactions=[];function iterate(list){if(list.length==1){return}var i=list.shift();list.filter(function(j){if(i!=j){return j}}).forEach(function(j,n){that.interactions.push(new that.Interaction(i,j))});iterate(list)}iterate(intermediary)},Interaction:function(a,b){this.pivot={a:a,b:b}}})})();</script>
+  <script>(function(){"use strict";Polymer("qfd-interactions",{interactionIcons:["","add-circle-outline","remove-circle-outline"],interactions:[],requirements:[],size:40,log:function(d,label){console.log(d,label||"{{log}}")},observe:{requirements:"processInteractions"},ofPivot:function(collection,pivot){return collection.filter(function(i){if(i.pivot.a==pivot){return i}})},requirementAction:function(){},_requirementAction:function(ev,o,e){var requirement=this.requirements[e.dataset.requirement];this.requirementAction(requirement)},getPosition:function(item,ix,iy,fixed){var size=this.size;var total=this.requirements.length;var pivot={x:ix*size+iy*(size/2)+(fixed?0:20),y:total/2*size-iy*(size/2),item:item};return pivot},ready:function(){this.processInteractions()},processInteractions:function(){if(this.requirements.length<1){return}var intermediary=this.requirements.slice(0);var that=this;this.interactions=[];function iterate(list){if(list.length==1){return}var i=list.shift();list.filter(function(j){if(i!=j){return j}}).forEach(function(j,n){that.interactions.push(new that.Interaction(i,j))});iterate(list)}iterate(intermediary)},changeInteractionType:function(ev,index,item){var i=_(this.interactions).find({id:item.dataset["id"]});i.interactionType=(i.interactionType+1)%this.interactionIcons.length},Interaction:function(a,b){this.id=_.uniqueId();this.pivot={a:a,b:b};this.interactionType=0}})})();</script>
 </polymer-element>
 </div><div hidden>
 

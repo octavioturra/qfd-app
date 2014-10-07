@@ -11,7 +11,7 @@
     <template repeat="{{o, a in requirements}}">
       <template repeat="{{i, b in interactions | ofPivot(o)}}">
         <template bind="{{p in i | getPosition(a, b)}}">
-          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="menu"></diamond-button>
+          <diamond-button style="top:{{p.y}}px;left:{{p.x}}px;position:absolute;z-index:{{b+1}}" size="{{size}}" icon="{{interactionIcons[i.interactionType]}}" on-click="{{changeInteractionType}}" data-id="{{i.id}}"></diamond-button>
         </template>
       </template>
       <template bind="{{r in requirements | getPosition(a, 0, true)}}">
@@ -25,6 +25,7 @@
       'use strict';
 
       Polymer({
+        interactionIcons:['','add-circle-outline','remove-circle-outline'],
         interactions: [],
         requirements: [],
         size: 40,
@@ -87,11 +88,17 @@
           }
           iterate(intermediary);
         },
+        changeInteractionType: function(ev, index, item){
+            var i = _(this.interactions).find({id:item.dataset['id']});
+            i.interactionType = (i.interactionType + 1)%this.interactionIcons.length;
+        },
         Interaction: function (a, b) {
+          this.id = _.uniqueId()
           this.pivot = {
             a: a,
             b: b
           };
+          this.interactionType = 0;
         }
       });
 
