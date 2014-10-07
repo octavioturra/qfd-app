@@ -55,8 +55,9 @@ header{
   margin-left:-4px;
 }
 .customerRequirement{
-  transform: rotate(90deg) translateX(44px);
-  transform-origin: 44px 0 ;
+  transform: rotate(90deg);
+  transform-origin: left bottom;
+  height: 40px;
 }
 .requirementsEvaluation_container{
   height:40px;
