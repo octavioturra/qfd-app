@@ -1,96 +1,121 @@
 :host {
   display: block;
-  width:100%;
+  width: 100%;
 }
-header{
-  display:block;
-  position:relative;
-}
-#content{
-  position:relative;
-  display:block;
-  display: inline-block;
-  float:left;
-}
-#requirementControls{
-  width:240px;
-  float:left;
+header {
   display: block;
-  height:100%;
-  position:absolute;
-}
-#requirementControls half-box{
-  width:240px;
-  height:240px;
-  position:absolute;
-  bottom:0;
-  right:-2px;
-  background: white;
-}
-#productRequirements{
-  margin-left:242px;
-  overflow: auto;
-}
-#requirements{
-  width:242px;
-  float:left;
-  height:auto;
-  text-align: center;
-}
-#requirementsEvaluation{
-  width:210px;
-  float:left;
-  height:auto;
-  text-align: center;
-}
-#requirements>*, #requirementsEvaluation>*{
-  width:100%;
-}
-.productRequirement_container{
-  height:240px;
-  width:40px;
-  margin:0;
-  display: block;
-  float:left;
   position: relative;
 }
-.productRequirement{
+#content {
+  position: relative;
+  display: block;
+  display: inline-block;
+  float: left;
+}
+#requirementControls {
+  width: 240px;
+  float: left;
+  display: block;
+  height: 100%;
+  position: absolute;
+}
+#requirementControls half-box {
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  bottom: 0;
+  right: -2px;
+  background: white;
+}
+#productRequirements {
+  margin-left: 242px;
+  overflow: auto;
+}
+#requirements {
+  width: 242px;
+  float: left;
+  height: auto;
+  text-align: center;
+}
+#requirementsEvaluation {
+  width: 210px;
+  float: left;
+  height: auto;
+  text-align: center;
+}
+#requirements>*,
+#requirementsEvaluation>* {
+  width: 100%;
+}
+.productRequirement_container {
+  height: 240px;
+  width: 40px;
+  margin: 0;
+  display: block;
+  float: left;
+  position: relative;
+}
+.productRequirement {
   transform: rotate(90deg) translateX(40px);
   transform-origin: 20px 20px;
   height: 40px;
-  width:200px;
+  width: 200px;
 }
-.customerRequirement_container{
-  height:40px;
-  display:flex;
+.customerRequirement_container {
+  height: 40px;
+  display: flex;
 }
-.customerRequirement{
-  width:160px;
+.customerRequirement {
+  width: 160px;
 }
-.requirementsEvaluation_container{
-  width :201px;
-  height:40px;
+.requirementsEvaluation_container {
+  width: 201px;
+  height: 40px;
   box-sizing: border-box;
   background: #fff;
   border: 1px solid lightgray;
 }
-#requirementsEvaluation double-range{
-  margin-top:10px
+#requirementsEvaluation double-range {
+  margin-top: 10px
 }
-.direction{
-  height:40px;
-  width:40px;
+.direction {
+  height: 40px;
+  width: 40px;
   background-color: lightgray;
-  background-image: linear-gradient(45deg, rgba(0,0,0,.3),transparent);
-  margin:0;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, .3), transparent);
+  margin: 0;
   border-radius: 0;
+  position: absolute;
+}
+.removeCustomerRequirement {
+  height: 40px;
+  width: 40px;
+  background-color: lightgray;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, .3), transparent);
+  margin: 0;
+  border-radius: 0;
+}
+footer {
+  display: block;
+  clear: both;
+}
+.productRelevance_container {
+  height: 210px;
+  width: 40px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  display: block;
+  float: left;
+  position: relative;
+  background:white;
+  border: 1px solid lightgray;
+}
+.productRelevance_container>double-range{
   position:absolute;
-}
-.removeCustomerRequirement{
-  height:40px;
-  width:40px;
-  background-color: lightgray;
-  background-image: linear-gradient(45deg, rgba(0,0,0,.3),transparent);
-  margin:0;
-  border-radius: 0;
+  bottom:20px;
+  left:5px;
+  transform: rotate(270deg);
+  transform-origin: 20px 20px;
 }
