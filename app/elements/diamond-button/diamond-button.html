@@ -20,6 +20,19 @@
         text-align: center;
         background-color: lightgray;
         background-image: linear-gradient(45deg, rgba(0,0,0,.1),transparent);
+        text-align: center;
+        outline:0;
+      }
+      core-icon{
+        transform: rotate(-45deg);
+        width:20px;
+        height:20px;
+        position:absolute;
+        top:0;
+        right:0;
+        left:0;
+        bottom:0;
+        margin: auto;
       }
       /*:host(:active){
         background-color: #aaa;
@@ -37,10 +50,10 @@
 
       Polymer({
         size:40,
-        action: function(){throw new Error('Not implemented action.')},
+        /*action: function(){throw new Error('Not implemented action.')},
         ready: function(){
           this.addEventListener('click', this.action)
-        }
+        }*/
       });
 
     })();

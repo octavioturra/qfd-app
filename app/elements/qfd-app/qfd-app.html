@@ -110,6 +110,9 @@
           });
         },
         removeCustomerRequirement: function (r) {
+          if(confirm('Do you want to delete this item?')==false){
+            return;
+          }
           this.customerRequirements = _(this.customerRequirements).without(r);
           this.$.interactions.requirements = this.customerRequirements;
         }

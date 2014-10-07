@@ -29,6 +29,7 @@ header{
 }
 #customerRequirements{
   margin-left:212px;
+  overflow: auto;
 }
 #requirements{
   width:200px;
@@ -50,13 +51,13 @@ header{
   height:201px;
   width:40px;
   margin:0;
-  display: inline-block;
+  display: block;
+  float:left;
   position: relative;
-  margin-left:-4px;
 }
 .customerRequirement{
   transform: rotate(90deg);
-  transform-origin: left bottom;
+  transform-origin: 20px 20px;
   height: 40px;
 }
 .requirementsEvaluation_container{
