@@ -23,7 +23,7 @@
       <aside id="requirements">
         <template repeat="{{customerRequirements}}">
           <div class="customerRequirement_container">
-           <paper-button icon="clear" class="removeCustomerRequirement" data-id="{{id}}" on-click="{{removeCustomerRequirement}}"></paper-button>
+            <paper-button icon="clear" class="removeCustomerRequirement" data-id="{{id}}" on-click="{{removeCustomerRequirement}}"></paper-button>
             <input-fit value="{{description}}" class="customerRequirement"></input-fit>
             <select class="priority">
               <template repeat="{{i in [1,2,3,4,5,6,7,8,9,10]}}">
@@ -45,7 +45,15 @@
       </aside>
     </main>
 
-    <footer></footer>
+    <footer>
+      <div id="productRequirements">
+        <template repeat="{{p in productRequirements}}">
+          <div class="productRelevance_container">
+            <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+          </div>
+        </template>
+      </div>
+    </footer>
 
 
   </template>
