@@ -100,7 +100,7 @@ footer {
   clear: both;
 }
 .productRelevance_container {
-  height: 210px;
+  height: 290px;
   width: 40px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -111,11 +111,24 @@ footer {
   position: relative;
   background:white;
   border: 1px solid lightgray;
+  overflow: hidden;
 }
 .productRelevance_container>double-range{
   position:absolute;
-  bottom:20px;
+  bottom:105px;
   left:5px;
   transform: rotate(270deg);
   transform-origin: 20px 20px;
+}
+title-box{
+  background:white;
+  display: block;
+  position: absolute;
+  border-top: 1px solid lightgray;
+}
+title-box:nth-child(3){
+  bottom:0;
+}
+title-box:nth-child(4){
+  bottom:40px;
 }

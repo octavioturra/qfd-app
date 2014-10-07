@@ -3,6 +3,8 @@
 <polymer-element name="qfd-app" attributes="">
   <template>
     <link rel="stylesheet" href="qfd-app.css">
+    <double-range valueA="{{a}}" valueB="{{b}}"></double-range>
+    {{a}}{{b}}
 
     <header>
       <div id="requirementControls">
@@ -47,9 +49,13 @@
 
     <footer>
       <div id="productRequirements">
-        <template repeat="{{p in productRequirements}}">
+        <template repeat="{{productRequirements}}">
           <div class="productRelevance_container">
-            <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+
+              <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+              <title-box caption="We" content="{{relevance.inner}}"></title-box>
+              <title-box caption="They" content="{{relevance.concurrent}}"></title-box>
+
           </div>
         </template>
       </div>
