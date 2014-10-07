@@ -27,7 +27,7 @@ header{
   right:-2px;
   background: white;
 }
-#customerRequirements{
+#productRequirements{
   margin-left:212px;
   overflow: auto;
 }
@@ -47,7 +47,7 @@ header{
 #requirements>*, #requirementsEvaluation>*{
   width:100%;
 }
-.customerRequirement_container{
+.productRequirement_container{
   height:201px;
   width:40px;
   margin:0;
@@ -55,13 +55,19 @@ header{
   float:left;
   position: relative;
 }
-.customerRequirement{
+.productRequirement{
   transform: rotate(90deg);
   transform-origin: 20px 20px;
   height: 40px;
 }
-.requirementsEvaluation_container{
+.customerRequirement_container{
+  width :201px;
   height:40px;
+}
+.requirementsEvaluation_container{
+  width :201px;
+  height:40px;
+  box-sizing: border-box;
   background: #fff;
   border: 1px solid lightgray;
 }

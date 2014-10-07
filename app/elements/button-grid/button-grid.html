@@ -8,12 +8,17 @@
       paper-button{
         width:{{size}}px;
         height:{{size}}px;
+        box-sizing: border-box;
+        float:left;
+        border-radius: 0;
+        background-color: lightgray;
+        background-image: linear-gradient(45deg, rgba(0,0,0,.3),transparent);
       }
     </style>
-    <template repeat="{{x in grid}}">
+    <template repeat="{{x, i in grid}}">
       <div class="row">
-        <template repeat="{{y in grid[x]}}">
-          <paper-button></paper-button>
+        <template repeat="{{y in grid[i]}}">
+          <paper-button icon="{{interactionIcons[y.interaction]}}" fill on-click="{{changeInteraction}}" data-id="{{y.id}}"></paper-button>
         </template>
       </div>
     </template>
@@ -23,7 +28,19 @@
       'use strict';
 
       Polymer({
-        // define element prototype here
+        grid:[[]],
+        interactionIcons : ['','check-circle-outline-blank','check-circle-blank','error'],
+        changeInteraction: function(ev, i, o, d){
+          var int = null;
+          _(this.grid).each(function(x){
+            return _(x).each(function(y){
+              if(y.id==o.dataset['id']){
+                int = y;
+              }
+            });
+          });
+          int.interaction = (int.interaction+1)%this.interactionIcons.length;
+        }
       });
 
     })();

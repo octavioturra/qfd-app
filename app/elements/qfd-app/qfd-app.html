@@ -8,11 +8,11 @@
       <div id="requirementControls">
         <half-box id="halfBox" header="Customer Requirements" footer="Product Requirements" headerIcon="add"></half-box>
       </div>
-      <div id="customerRequirements">
+      <div id="productRequirements">
         <qfd-interactions id="interactions"></qfd-interactions>
-        <template repeat="{{customerRequirements}}">
-          <div class="customerRequirement_container">
-            <input-fit value="{{description}}" class="customerRequirement"></input-fit>
+        <template repeat="{{productRequirements}}">
+          <div class="productRequirement_container">
+            <input-fit value="{{description}}" class="productRequirement"></input-fit>
           </div>
         </template>
       </div>
@@ -20,8 +20,10 @@
     </header>
     <main>
       <aside id="requirements">
-        <template repeat="{{productRequirements}}">
-          <input-fit value="{{description}}" class="productRequirement"></input-fit>
+        <template repeat="{{customerRequirements}}">
+            <div class="customerRequirement_container">
+          <input-fit value="{{description}}" class="customerRequirement"></input-fit>
+          </div>
         </template>
       </aside>
       <div id="content" style="width:{{customerRequirements.length*40+2}}px;height:{{productRequirements.length*40}}px">
@@ -82,26 +84,32 @@
         }],
         ready: function () {
           var that = this;
-          this.$.interactions.requirements = this.customerRequirements;
-          this.$.interactions.requirementAction = function(r){that.removeCustomerRequirement(r)};
+          this.$.interactions.requirements = this.productRequirements;
+          this.$.interactions.requirementAction = function(r){that.removeProductRequirement(r)};
           var that = this;
-          this.$.halfBox.headerAction = function(){that.addCustomerRequirement()};
+          this.$.halfBox.headerAction = function(){that.addProductRequirement()};
           this.prepareGrid();
         },
         prepareGrid: function(){
           var grid = [];
-          
-          _(this.productRequirements).each(function(pr){
+          var self = this;
+          _(self.productRequirements).each(function(pr){
             var row = [];
-            _(this.cutomerRequirements).each(function(cr){
+            _(self.customerRequirements).each(function(cr){
               row.push({
+                id: _.uniqueId(),
                 x:pr,
-                y:cr
+                y:cr,
+                interaction: 0,
               });
             });
             grid.push(row);
           });
+          console.log(grid)
           this.$.grid.grid = grid;
+        },
+        addProductRequirement: function(){
+
         },
         addCustomerRequirement: function () {
           var last = this.customerRequirements[this.customerRequirements.length - 1];
@@ -115,6 +123,9 @@
           }
           this.customerRequirements = _(this.customerRequirements).without(r);
           this.$.interactions.requirements = this.customerRequirements;
+        },
+        removerProductRequirement:function(r){
+
         }
       });
 
