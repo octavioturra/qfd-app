@@ -20,13 +20,23 @@
 </head>
 
 <body unresolved>
+  <core-scaffold>
+    <core-header-panel navigation flex mode="seamed">
+      <core-toolbar>QFDFiddler</core-toolbar>
 
-  <header>
 
-  </header>
-  <div class="hero-unit">
-    <qfd-app></qfd-app>
-  </div>
+      <aside class="sidemenu">
+        <paper-input label="Title:" floatingLabel name="title" class="bind"></paper-input>
+        <paper-input label="Author:" floatingLabel name="author" class="bind"></paper-input>
+        <paper-input multiline label="Description:" floatingLabel name="description"></paper-input>
+        <paper-button label="Save" raisedbutton icon="save"></paper-button>
+      </aside>
+    </core-header-panel>
+    <div tool id="title"></div>
+    <main>
+      <qfd-app></qfd-app>
+    </main>
+  </core-scaffold>
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>

@@ -1,11 +1,18 @@
 (function(document) {
   'use strict';
 
-  document.addEventListener('polymer-ready', function() {
-    // Perform some behaviour
-    console.log('Polymer is ready to rock!');
-  });
+  var app = {
+    title: 'Untitled',
+    author: 'Anonimous',
+    description:'',
+    requirements:{},
+    relations:{}
+  }
 
-// wrap document so it plays nice with other libraries
-// http://www.polymer-project.org/platform/shadow-dom.html#wrappers
+  document.addEventListener('polymer-ready', function() {
+    _(document.querySelectorAll('.bind')).each(function(el){
+      el.bind('value', new PathObserver(app, el.getAttribute('name')));
+    });
+    document.querySelector('#title').bind('textContent', new PathObserver(app, 'title'));
+  });
 })(wrap(document));
