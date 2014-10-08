@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../double-range/double-range.html">
 
-<polymer-element name="qfd-app" attributes="">
+<polymer-element name="qfd-app" attributes="caption author description">
   <template>
     <link rel="stylesheet" href="qfd-app.css">
 
@@ -25,7 +26,7 @@
           <div class="customerRequirement_container">
             <paper-button icon="clear" class="removeCustomerRequirement" data-id="{{id}}" on-click="{{removeCustomerRequirement}}"></paper-button>
             <input-fit value="{{description}}" class="customerRequirement"></input-fit>
-            <select class="priority">
+            <select class="priority" value="{{priority}}">
               <template repeat="{{i in [1,2,3,4,5,6,7,8,9,10]}}">
                 <option value="{{i}}">{{i}}</option>
               </template>
@@ -47,9 +48,13 @@
 
     <footer>
       <div id="productRequirements">
-        <template repeat="{{p in productRequirements}}">
+        <template repeat="{{productRequirements}}">
           <div class="productRelevance_container">
-            <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+
+              <double-range valueA="{{relevance.inner}}" valueB="{{relevance.concurrent}}"></double-range>
+              <title-box caption="We" content="{{relevance.inner}}"></title-box>
+              <title-box caption="They" content="{{relevance.concurrent}}"></title-box>
+
           </div>
         </template>
       </div>

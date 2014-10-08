@@ -6,36 +6,36 @@
     productRequirements: [{
       id: 1,
       description: 'teste',
-      relevance: {}, direction:0
+      relevance: {inner:0, concurrent:0}, direction:0
         }, {
       id: 2,
       description: 'teste1',
-      relevance: {}, direction:0
+      relevance: {inner:0, concurrent:0}, direction:0
         }, {
       id: 3,
       description: 'teste2',
-      relevance: {}, direction:0
+      relevance: {inner:0, concurrent:0}, direction:0
         }, {
       id: 4,
       description: 'teste3',
-      relevance: {}, direction:0
+      relevance: {inner:0, concurrent:0}, direction:0
         }],
     customerRequirements: [{
       id: 1,
       description: 'teste',
-      relevance: {}
+      relevance: {inner:0, concurrent:0}
         }, {
       id: 2,
       description: 'teste1',
-      relevance: {}
+      relevance: {inner:0, concurrent:0}
         }, {
       id: 3,
       description: 'teste2',
-      relevance: {}
+      relevance: {inner:0, concurrent:0}
         }, {
       id: 4,
       description: 'teste3',
-      relevance: {}
+      relevance: {inner:0, concurrent:0}
         }],
     observe: {
       productRequirements: 'prepareGrid',
@@ -76,12 +76,14 @@
     },
     addProductRequirement: function () {
       this.productRequirements.push({
-        id: _.uniqueId()
+        id: _.uniqueId(),
+        relevance:{}
       });
     },
     addCustomerRequirement: function () {
       this.customerRequirements.push({
-        id: _.uniqueId()
+        id: _.uniqueId(),
+        relevance:{}
       });
     },
     removeCustomerRequirement: function (ev, i, o) {

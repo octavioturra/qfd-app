@@ -97,7 +97,11 @@
           ev.preventDefault();
           return false;
         }
-        this['value' + this.changing] = quadrant.dataset['index'];
+        if(this['value' + this.changing]!=quadrant.dataset['index']){
+          this['value' + this.changing] = quadrant.dataset['index'];
+          this.fire('change');
+        }
+
         ev.preventDefault();
       },
       prepareQuadrants: function () {

@@ -1,1 +1,1 @@
-!function(a){"use strict";a.addEventListener("polymer-ready",function(){console.log("Polymer is ready to rock!")})}(wrap(document));
+!function(a){"use strict";var b={title:"Untitled",author:"Anonimous",description:"",requirements:{},relations:{}};a.addEventListener("polymer-ready",function(){_(a.querySelectorAll(".bind")).each(function(a){a.bind("value",new PathObserver(b,a.getAttribute("name")))}),a.querySelector("#title").bind("textContent",new PathObserver(b,"title"))})}(wrap(document));
