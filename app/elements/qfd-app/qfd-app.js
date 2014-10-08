@@ -2,7 +2,6 @@
   'use strict';
 
   Polymer({
-    a:0,b:0,
     directions:['','expand-less','expand-more'],
     productRequirements: [{
       id: 1,

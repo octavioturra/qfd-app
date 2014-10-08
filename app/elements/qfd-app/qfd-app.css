@@ -129,6 +129,6 @@ title-box{
 title-box:nth-child(3){
   bottom:0;
 }
-title-box:nth-child(4){
+title-box:nth-child(2){
   bottom:40px;
 }
