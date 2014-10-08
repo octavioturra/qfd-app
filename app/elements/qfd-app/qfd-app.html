@@ -26,7 +26,7 @@
           <div class="customerRequirement_container">
             <paper-button icon="clear" class="removeCustomerRequirement" data-id="{{id}}" on-click="{{removeCustomerRequirement}}"></paper-button>
             <input-fit value="{{description}}" class="customerRequirement"></input-fit>
-            <select class="priority">
+            <select class="priority" value="{{priority}}">
               <template repeat="{{i in [1,2,3,4,5,6,7,8,9,10]}}">
                 <option value="{{i}}">{{i}}</option>
               </template>
